@@ -10,6 +10,11 @@
             "StackName": "amplify-spacexamplified-dev-194340",
             "StackId": "arn:aws:cloudformation:eu-west-2:352927560332:stack/amplify-spacexamplified-dev-194340/9ca7c5f0-bfb8-11ea-9a02-0622cd7b28da",
             "AmplifyAppId": "d2akyepdwrdpf9"
+        },
+        "categories": {
+            "auth": {
+                "spacexamplifieddd3e0e21": {}
+            }
         }
     }
 }
