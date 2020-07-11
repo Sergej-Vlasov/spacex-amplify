@@ -1,6 +1,5 @@
 type Rockets @model {
-  rocketid: Int
-  id: String
+  id: ID!
   name: String
   type: String
   active: Boolean
@@ -14,12 +13,12 @@ type Rockets @model {
   height: Height
   diameter: Diameter
   mass: Mass
-  payload_weights: RocketPayloadWeights[]
+  payload_weights: [RocketPayloadWeights]
   first_stage: RocketFirstStage
   second_stage: RocketSecondStage
   engines: RocketEngines
   landing_legs: RocketLandingLegs
-  flickr_images: String[]
+  flickr_images: [String]
   wikipedia: String
   description: String
 }
@@ -56,9 +55,9 @@ type RocketFirstStage {
 }
 
 type Thrust {
-    kN: Float
-    lbf: Float
-  }
+  kN: Float
+  lbf: Float
+}
 
 type RocketSecondStage {
   reusable: Boolean
@@ -79,30 +78,56 @@ type CompositeFairing {
   diameter: Diameter
 }
 
- type RocketEngines {
-    number: Int
-    type: String
-    version: String
-    layout: String
-    isp: Isp
-    engine_loss_max: Int
-    propellant_1: String
-    propellant_2: String
-    thrust_sea_level: Thrust
-    thrust_vacuum: Thrust
-    thrust_to_weight: Int
-  }
+type RocketEngines {
+  number: Int
+  type: String
+  version: String
+  layout: String
+  isp: Isp
+  engine_loss_max: Int
+  propellant_1: String
+  propellant_2: String
+  thrust_sea_level: Thrust
+  thrust_vacuum: Thrust
+  thrust_to_weight: Float
+}
 
-  type Isp {
-    sea_level: Int;
-    vacuum: Int;
-  }
+type Isp {
+  sea_level: Int
+  vacuum: Int
+}
 
-   type RocketLandingLegs {
-    number: Int
-    material: String
-  }
+type RocketLandingLegs {
+  number: Int
+  material: String
+}
+
+type RocketsFetch {
+  id: String
+  name: String
+  type: String
+  active: Boolean
+  stages: Int
+  boosters: Int
+  cost_per_launch: Int
+  success_rate_pct: Int
+  first_flight: String
+  country: String
+  company: String
+  height: Height
+  diameter: Diameter
+  mass: Mass
+  payload_weights: [RocketPayloadWeights]
+  first_stage: RocketFirstStage
+  second_stage: RocketSecondStage
+  engines: RocketEngines
+  landing_legs: RocketLandingLegs
+  flickr_images: [String]
+  wikipedia: String
+  description: String
+}
 
 type Query {
-  fetchRockets: Rockets[] @http(url:"https://api.spacexdata.com/v4/rockets")
+  fetchRockets: [RocketsFetch]
+    @http(url: "https://api.spacexdata.com/v4/rockets")
 }
