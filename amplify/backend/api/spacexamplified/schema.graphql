@@ -217,8 +217,8 @@ type FlickrLinks {
 
 type DragonCapsule {
   capsule: String
-  mass_returned_kg: Int
-  mass_returned_lbs: Int
+  mass_returned_kg: Float
+  mass_returned_lbs: Float
   flight_time_sec: Int
   manifest: String
   water_landing: Boolean
@@ -286,23 +286,24 @@ type PayloadFetch {
   norad_ids: [Int]
   nationalities: [String]
   manufacturers: [String]
-  mass_kg: Int
+  mass_kg: Float
+  mass_lbs: Float
   orbit: String
   reference_system: String
   regime: String
-  longitude: Int
-  semi_major_axis_km: Int
-  eccentricity: Int
-  periapsis_km: Int
-  apoapsis_km: Int
-  inclination_deg: Int
-  period_min: Int
-  lifespan_years: Int
+  longitude: Float
+  semi_major_axis_km: Float
+  eccentricity: Float
+  periapsis_km: Float
+  apoapsis_km: Float
+  inclination_deg: Float
+  period_min: Float
+  lifespan_years: Float
   epoch: String
-  mean_motion: Int
-  raan: Int
-  arg_of_pericenter: Int
-  mean_anomaly: Int
+  mean_motion: Float
+  raan: Float
+  arg_of_pericenter: Float
+  mean_anomaly: Float
   dragon: DragonCapsule
 }
 
@@ -310,7 +311,7 @@ type Query {
   fetchRockets: [RocketsFetch]
     @http(url: "https://api.spacexdata.com/v4/rockets")
   fetchLaunches: [LaunchFetch]
-    @http(url: "https://api.spacexdata.com/v4//launches/past")
+    @http(url: "https://api.spacexdata.com/v4/launches/past")
   fetchPayloads: [PayloadFetch]
-    @http(url: "https://api.spacexdata.com/v4//payloads")
+    @http(url: "https://api.spacexdata.com/v4/payloads")
 }

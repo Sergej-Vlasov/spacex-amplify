@@ -169,6 +169,7 @@ export const fetchPayloads = /* GraphQL */ `
       nationalities
       manufacturers
       mass_kg
+      mass_lbs
       orbit
       reference_system
       regime
