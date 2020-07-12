@@ -23,6 +23,66 @@ type Rockets @model {
   description: String
 }
 
+type Launch @model @key(fields: ["name"]) {
+  id: ID!
+  name: String!
+  flight_number: Int!
+  date_utc: String!
+  date_unix: Int!
+  date_local: String!
+  date_precision: DatePrecision!
+  static_fire_date_utc: String
+  static_fire_date_unix: Int
+  tdb: Boolean
+  net: Boolean
+  window: Int
+  rocket: String
+  failures: [String]
+  upcoming: Boolean
+  details: String
+  fairings: LaunchFairings
+  crew: [String]
+  ships: [String]
+  capsules: [String]
+  payloads: [Payload] @connection(keyName: "byLaunch", fields: ["name"])
+  launchpad: String
+  cores: [LaunchCore]
+  links: LaunchLinks
+  auto_update: Boolean
+}
+
+type Payload @model @key(name: "byLaunch", fields: ["launch_name"]) {
+  id: ID!
+  name: String!
+  launch_name: String!
+  type: String
+  reused: Boolean
+  launch: Launch @connection(fields: ["launch_name"])
+  customers: [String]
+  norad_ids: [Int]
+  nationalities: [String]
+  manufacturers: [String]
+  mass_kg: Float
+  mass_lbs: Float
+  orbit: String
+  reference_system: String
+  regime: String
+  longitude: Float
+  semi_major_axis_km: Float
+  eccentricity: Float
+  periapsis_km: Float
+  apoapsis_km: Float
+  inclination_deg: Float
+  period_min: Float
+  lifespan_years: Float
+  epoch: String
+  mean_motion: Float
+  raan: Float
+  arg_of_pericenter: Float
+  mean_anomaly: Float
+  dragon: DragonCapsule
+}
+
 type Height {
   meters: Float
   feet: Float
@@ -102,6 +162,72 @@ type RocketLandingLegs {
   material: String
 }
 
+enum DatePrecision {
+  half
+  quarter
+  year
+  month
+  day
+  hour
+}
+
+type LaunchFairings {
+  reused: Boolean
+  recovery_attempt: Boolean
+  recovered: Boolean
+  ships: [String]
+}
+
+type LaunchCore {
+  core: String
+  flight: Int
+  gridfins: Boolean
+  legs: Boolean
+  reused: Boolean
+  landing_attempt: Boolean
+  landing_success: Boolean
+  landing_type: String
+  landpad: String
+}
+
+type LaunchLinks {
+  patch: PatchLinks
+  reddit: RedditLinks
+  flickr: FlickrLinks
+  presskit: String
+  webcast: String
+  youtube_id: String
+  article: String
+  wikipedia: String
+}
+
+type PatchLinks {
+  small: String
+  large: String
+}
+
+type RedditLinks {
+  campaign: String
+  launch: String
+  media: String
+  recovery: String
+}
+
+type FlickrLinks {
+  small: String
+  original: String
+}
+
+type DragonCapsule {
+  capsule: String
+  mass_returned_kg: Float
+  mass_returned_lbs: Float
+  flight_time_sec: Int
+  manifest: String
+  water_landing: Boolean
+  land_landing: Boolean
+}
+
 type RocketsFetch {
   id: String
   name: String
@@ -127,7 +253,72 @@ type RocketsFetch {
   description: String
 }
 
+type LaunchFetch {
+  flight_number: Int!
+  name: String!
+  date_utc: String!
+  date_unix: Int!
+  date_local: String!
+  date_precision: DatePrecision!
+  static_fire_date_utc: String
+  static_fire_date_unix: Int
+  tdb: Boolean
+  net: Boolean
+  window: Int
+  rocket: String
+  failures: [String]
+  upcoming: Boolean
+  details: String
+  fairings: LaunchFairings
+  crew: [String]
+  ships: [String]
+  capsules: [String]
+  payloads: [String]
+  launchpad: String
+  cores: [LaunchCore]
+  links: LaunchLinks
+  auto_update: Boolean
+}
+
+type PayloadFetch {
+  name: String!
+  type: String
+  reused: Boolean
+  launch: String
+  customers: [String]
+  norad_ids: [Int]
+  nationalities: [String]
+  manufacturers: [String]
+  mass_kg: Float
+  mass_lbs: Float
+  orbit: String
+  reference_system: String
+  regime: String
+  longitude: Float
+  semi_major_axis_km: Float
+  eccentricity: Float
+  periapsis_km: Float
+  apoapsis_km: Float
+  inclination_deg: Float
+  period_min: Float
+  lifespan_years: Float
+  epoch: String
+  mean_motion: Float
+  raan: Float
+  arg_of_pericenter: Float
+  mean_anomaly: Float
+  dragon: DragonCapsule
+}
+
 type Query {
   fetchRockets: [RocketsFetch]
     @http(url: "https://api.spacexdata.com/v4/rockets")
+  fetchLaunches: [LaunchFetch]
+    @http(url: "https://api.spacexdata.com/v4/launches/past")
+  fetchLaunch: LaunchFetch
+    @http(url: "https://api.spacexdata.com/v4/launches/:id")
+  fetchPayloads: [PayloadFetch]
+    @http(url: "https://api.spacexdata.com/v4/payloads")
+  fetchPayload: PayloadFetch
+    @http(url: "https://api.spacexdata.com/v4/payloads/:id")
 }
