@@ -295,8 +295,8 @@ export const createLaunch = /* GraphQL */ `
     $condition: ModelLaunchConditionInput
   ) {
     createLaunch(input: $input, condition: $condition) {
-      flight_number
       name
+      flight_number
       date_utc
       date_unix
       date_local
@@ -319,7 +319,39 @@ export const createLaunch = /* GraphQL */ `
       crew
       ships
       capsules
-      payloads
+      payloads {
+        items {
+          name
+          launch_name
+          type
+          reused
+          customers
+          norad_ids
+          nationalities
+          manufacturers
+          mass_kg
+          mass_lbs
+          orbit
+          reference_system
+          regime
+          longitude
+          semi_major_axis_km
+          eccentricity
+          periapsis_km
+          apoapsis_km
+          inclination_deg
+          period_min
+          lifespan_years
+          epoch
+          mean_motion
+          raan
+          arg_of_pericenter
+          mean_anomaly
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       launchpad
       cores {
         core
@@ -365,8 +397,8 @@ export const updateLaunch = /* GraphQL */ `
     $condition: ModelLaunchConditionInput
   ) {
     updateLaunch(input: $input, condition: $condition) {
-      flight_number
       name
+      flight_number
       date_utc
       date_unix
       date_local
@@ -389,7 +421,39 @@ export const updateLaunch = /* GraphQL */ `
       crew
       ships
       capsules
-      payloads
+      payloads {
+        items {
+          name
+          launch_name
+          type
+          reused
+          customers
+          norad_ids
+          nationalities
+          manufacturers
+          mass_kg
+          mass_lbs
+          orbit
+          reference_system
+          regime
+          longitude
+          semi_major_axis_km
+          eccentricity
+          periapsis_km
+          apoapsis_km
+          inclination_deg
+          period_min
+          lifespan_years
+          epoch
+          mean_motion
+          raan
+          arg_of_pericenter
+          mean_anomaly
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       launchpad
       cores {
         core
@@ -435,8 +499,8 @@ export const deleteLaunch = /* GraphQL */ `
     $condition: ModelLaunchConditionInput
   ) {
     deleteLaunch(input: $input, condition: $condition) {
-      flight_number
       name
+      flight_number
       date_utc
       date_unix
       date_local
@@ -459,7 +523,39 @@ export const deleteLaunch = /* GraphQL */ `
       crew
       ships
       capsules
-      payloads
+      payloads {
+        items {
+          name
+          launch_name
+          type
+          reused
+          customers
+          norad_ids
+          nationalities
+          manufacturers
+          mass_kg
+          mass_lbs
+          orbit
+          reference_system
+          regime
+          longitude
+          semi_major_axis_km
+          eccentricity
+          periapsis_km
+          apoapsis_km
+          inclination_deg
+          period_min
+          lifespan_years
+          epoch
+          mean_motion
+          raan
+          arg_of_pericenter
+          mean_anomaly
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       launchpad
       cores {
         core
@@ -506,9 +602,60 @@ export const createPayload = /* GraphQL */ `
   ) {
     createPayload(input: $input, condition: $condition) {
       name
+      launch_name
       type
       reused
-      launch
+      launch {
+        name
+        flight_number
+        date_utc
+        date_unix
+        date_local
+        date_precision
+        static_fire_date_utc
+        static_fire_date_unix
+        tdb
+        net
+        window
+        rocket
+        failures
+        upcoming
+        details
+        fairings {
+          reused
+          recovery_attempt
+          recovered
+          ships
+        }
+        crew
+        ships
+        capsules
+        payloads {
+          nextToken
+        }
+        launchpad
+        cores {
+          core
+          flight
+          gridfins
+          legs
+          reused
+          landing_attempt
+          landing_success
+          landing_type
+          landpad
+        }
+        links {
+          presskit
+          webcast
+          youtube_id
+          article
+          wikipedia
+        }
+        auto_update
+        createdAt
+        updatedAt
+      }
       customers
       norad_ids
       nationalities
@@ -552,9 +699,60 @@ export const updatePayload = /* GraphQL */ `
   ) {
     updatePayload(input: $input, condition: $condition) {
       name
+      launch_name
       type
       reused
-      launch
+      launch {
+        name
+        flight_number
+        date_utc
+        date_unix
+        date_local
+        date_precision
+        static_fire_date_utc
+        static_fire_date_unix
+        tdb
+        net
+        window
+        rocket
+        failures
+        upcoming
+        details
+        fairings {
+          reused
+          recovery_attempt
+          recovered
+          ships
+        }
+        crew
+        ships
+        capsules
+        payloads {
+          nextToken
+        }
+        launchpad
+        cores {
+          core
+          flight
+          gridfins
+          legs
+          reused
+          landing_attempt
+          landing_success
+          landing_type
+          landpad
+        }
+        links {
+          presskit
+          webcast
+          youtube_id
+          article
+          wikipedia
+        }
+        auto_update
+        createdAt
+        updatedAt
+      }
       customers
       norad_ids
       nationalities
@@ -598,9 +796,60 @@ export const deletePayload = /* GraphQL */ `
   ) {
     deletePayload(input: $input, condition: $condition) {
       name
+      launch_name
       type
       reused
-      launch
+      launch {
+        name
+        flight_number
+        date_utc
+        date_unix
+        date_local
+        date_precision
+        static_fire_date_utc
+        static_fire_date_unix
+        tdb
+        net
+        window
+        rocket
+        failures
+        upcoming
+        details
+        fairings {
+          reused
+          recovery_attempt
+          recovered
+          ships
+        }
+        crew
+        ships
+        capsules
+        payloads {
+          nextToken
+        }
+        launchpad
+        cores {
+          core
+          flight
+          gridfins
+          legs
+          reused
+          landing_attempt
+          landing_success
+          landing_type
+          landpad
+        }
+        links {
+          presskit
+          webcast
+          youtube_id
+          article
+          wikipedia
+        }
+        auto_update
+        createdAt
+        updatedAt
+      }
       customers
       norad_ids
       nationalities

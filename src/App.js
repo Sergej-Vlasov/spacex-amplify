@@ -6,7 +6,9 @@ const App = () => {
   useEffect(() => {
     (async () => {
       const payloads = await API.graphql(graphqlOperation(fetchPayloads));
+      const launches = await API.graphql(graphqlOperation(fetchLaunches));
       console.log(payloads);
+      console.log(launches);
     })();
   }, []);
 

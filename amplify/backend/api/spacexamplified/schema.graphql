@@ -23,9 +23,9 @@ type Rockets @model {
   description: String
 }
 
-type Launch @model {
-  flight_number: Int!
+type Launch @model @key(fields: ["name"]) {
   name: String!
+  flight_number: Int!
   date_utc: String!
   date_unix: Int!
   date_local: String!
@@ -43,18 +43,19 @@ type Launch @model {
   crew: [String]
   ships: [String]
   capsules: [String]
-  payloads: [String]
+  payloads: [Payload] @connection(keyName: "byLaunch", fields: ["name"])
   launchpad: String
   cores: [LaunchCore]
   links: LaunchLinks
   auto_update: Boolean
 }
 
-type Payload @model {
+type Payload @model @key(name: "byLaunch", fields: ["launch_name"]) {
   name: String!
+  launch_name: String!
   type: String
   reused: Boolean
-  launch: String
+  launch: Launch @connection(fields: ["launch_name"])
   customers: [String]
   norad_ids: [Int]
   nationalities: [String]
@@ -312,6 +313,10 @@ type Query {
     @http(url: "https://api.spacexdata.com/v4/rockets")
   fetchLaunches: [LaunchFetch]
     @http(url: "https://api.spacexdata.com/v4/launches/past")
+  fetchLaunc: [LaunchFetch]
+    @http(url: "https://api.spacexdata.com/v4/launches/:id")
   fetchPayloads: [PayloadFetch]
     @http(url: "https://api.spacexdata.com/v4/payloads")
+  fetchPayload: [PayloadFetch]
+    @http(url: "https://api.spacexdata.com/v4/payloads/:id")
 }
