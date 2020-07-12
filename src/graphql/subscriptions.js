@@ -283,6 +283,7 @@ export const onDeleteRockets = /* GraphQL */ `
 export const onCreateLaunch = /* GraphQL */ `
   subscription OnCreateLaunch {
     onCreateLaunch {
+      id
       name
       flight_number
       date_utc
@@ -309,6 +310,7 @@ export const onCreateLaunch = /* GraphQL */ `
       capsules
       payloads {
         items {
+          id
           name
           launch_name
           type
@@ -382,6 +384,7 @@ export const onCreateLaunch = /* GraphQL */ `
 export const onUpdateLaunch = /* GraphQL */ `
   subscription OnUpdateLaunch {
     onUpdateLaunch {
+      id
       name
       flight_number
       date_utc
@@ -408,6 +411,7 @@ export const onUpdateLaunch = /* GraphQL */ `
       capsules
       payloads {
         items {
+          id
           name
           launch_name
           type
@@ -481,6 +485,7 @@ export const onUpdateLaunch = /* GraphQL */ `
 export const onDeleteLaunch = /* GraphQL */ `
   subscription OnDeleteLaunch {
     onDeleteLaunch {
+      id
       name
       flight_number
       date_utc
@@ -507,6 +512,7 @@ export const onDeleteLaunch = /* GraphQL */ `
       capsules
       payloads {
         items {
+          id
           name
           launch_name
           type
@@ -580,11 +586,13 @@ export const onDeleteLaunch = /* GraphQL */ `
 export const onCreatePayload = /* GraphQL */ `
   subscription OnCreatePayload {
     onCreatePayload {
+      id
       name
       launch_name
       type
       reused
       launch {
+        id
         name
         flight_number
         date_utc
@@ -674,11 +682,13 @@ export const onCreatePayload = /* GraphQL */ `
 export const onUpdatePayload = /* GraphQL */ `
   subscription OnUpdatePayload {
     onUpdatePayload {
+      id
       name
       launch_name
       type
       reused
       launch {
+        id
         name
         flight_number
         date_utc
@@ -768,11 +778,13 @@ export const onUpdatePayload = /* GraphQL */ `
 export const onDeletePayload = /* GraphQL */ `
   subscription OnDeletePayload {
     onDeletePayload {
+      id
       name
       launch_name
       type
       reused
       launch {
+        id
         name
         flight_number
         date_utc

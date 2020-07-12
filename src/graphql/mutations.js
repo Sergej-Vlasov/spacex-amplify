@@ -295,6 +295,7 @@ export const createLaunch = /* GraphQL */ `
     $condition: ModelLaunchConditionInput
   ) {
     createLaunch(input: $input, condition: $condition) {
+      id
       name
       flight_number
       date_utc
@@ -321,6 +322,7 @@ export const createLaunch = /* GraphQL */ `
       capsules
       payloads {
         items {
+          id
           name
           launch_name
           type
@@ -397,6 +399,7 @@ export const updateLaunch = /* GraphQL */ `
     $condition: ModelLaunchConditionInput
   ) {
     updateLaunch(input: $input, condition: $condition) {
+      id
       name
       flight_number
       date_utc
@@ -423,6 +426,7 @@ export const updateLaunch = /* GraphQL */ `
       capsules
       payloads {
         items {
+          id
           name
           launch_name
           type
@@ -499,6 +503,7 @@ export const deleteLaunch = /* GraphQL */ `
     $condition: ModelLaunchConditionInput
   ) {
     deleteLaunch(input: $input, condition: $condition) {
+      id
       name
       flight_number
       date_utc
@@ -525,6 +530,7 @@ export const deleteLaunch = /* GraphQL */ `
       capsules
       payloads {
         items {
+          id
           name
           launch_name
           type
@@ -601,11 +607,13 @@ export const createPayload = /* GraphQL */ `
     $condition: ModelPayloadConditionInput
   ) {
     createPayload(input: $input, condition: $condition) {
+      id
       name
       launch_name
       type
       reused
       launch {
+        id
         name
         flight_number
         date_utc
@@ -698,11 +706,13 @@ export const updatePayload = /* GraphQL */ `
     $condition: ModelPayloadConditionInput
   ) {
     updatePayload(input: $input, condition: $condition) {
+      id
       name
       launch_name
       type
       reused
       launch {
+        id
         name
         flight_number
         date_utc
@@ -795,11 +805,13 @@ export const deletePayload = /* GraphQL */ `
     $condition: ModelPayloadConditionInput
   ) {
     deletePayload(input: $input, condition: $condition) {
+      id
       name
       launch_name
       type
       reused
       launch {
+        id
         name
         flight_number
         date_utc

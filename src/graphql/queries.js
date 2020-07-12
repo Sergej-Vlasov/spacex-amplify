@@ -367,6 +367,7 @@ export const listRocketss = /* GraphQL */ `
 export const getLaunch = /* GraphQL */ `
   query GetLaunch($name: String!) {
     getLaunch(name: $name) {
+      id
       name
       flight_number
       date_utc
@@ -393,6 +394,7 @@ export const getLaunch = /* GraphQL */ `
       capsules
       payloads {
         items {
+          id
           name
           launch_name
           type
@@ -479,6 +481,7 @@ export const listLaunchs = /* GraphQL */ `
       sortDirection: $sortDirection
     ) {
       items {
+        id
         name
         flight_number
         date_utc
@@ -536,11 +539,13 @@ export const listLaunchs = /* GraphQL */ `
 export const getPayload = /* GraphQL */ `
   query GetPayload($id: ID!) {
     getPayload(id: $id) {
+      id
       name
       launch_name
       type
       reused
       launch {
+        id
         name
         flight_number
         date_utc
@@ -635,11 +640,13 @@ export const listPayloads = /* GraphQL */ `
   ) {
     listPayloads(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        id
         name
         launch_name
         type
         reused
         launch {
+          id
           name
           flight_number
           date_utc
@@ -701,9 +708,9 @@ export const listPayloads = /* GraphQL */ `
     }
   }
 `;
-export const fetchLaunc = /* GraphQL */ `
-  query FetchLaunc($params: QueryFetchLauncParamsInput!) {
-    fetchLaunc(params: $params) {
+export const fetchLaunch = /* GraphQL */ `
+  query FetchLaunch($params: QueryFetchLaunchParamsInput!) {
+    fetchLaunch(params: $params) {
       flight_number
       name
       date_utc
