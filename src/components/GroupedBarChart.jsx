@@ -5,7 +5,8 @@ import {
   axisLeft,
   scaleLinear,
   scaleBand,
-  event
+  event,
+  scaleOrdinal
 } from "d3";
 import { SVG, SVGWrapper } from "../styledComponents";
 import { UseResizeObserver } from "../hooks";
@@ -41,12 +42,18 @@ const GroupedBarChart = () => {
       .domain([0, maxLength])
       .range([dimensions.height, 0]);
 
-    const xScale = scaleBand()
-      .domain(rockets.map((val, ind) => ind))
+    const xScale0 = scaleBand()
+      .domain(rockets)
       .range([0, dimensions.width])
-      .padding(0.5);
+      .padding(0.2);
 
-    const xAxis = axisBottom(xScale).ticks(data.length);
+    const xScale1 = scaleBand()
+      .domain(["length", "diameter"])
+      .range([0, xScale0.bandwidth()]);
+    // .domain(["length", "diameter"])
+    // .range([0, dimensions.width / rockets.length]);
+
+    const xAxis = axisBottom(xScale0).ticks(data.length);
 
     const yAxis = axisLeft(yScale);
 
@@ -58,23 +65,25 @@ const GroupedBarChart = () => {
 
     svg.select(".y-axis").style("color", "#BB86FC").call(yAxis);
 
-    console.log(yScale(1), xScale(1));
+    // console.log(yScale(), x0Scale());
 
-    svg
+    const groups = svg
       .selectAll(".group")
       .data(data)
       .join("g")
       .attr("class", "group")
-      .attr("x", (value, index) => xScale(index))
-      .attr("y", dimensions.height)
-      .attr("width", xScale.bandwidth())
-      .selectAll(".bar")
-      .data(data => data)
+      .attr("transform", data => `translate(${xScale0(data.rocket)},0)`);
+
+    groups
+      .selectAll(".bar.length")
+      .data(data => [data])
       .join("rect")
-      .style("transform", "scale(1, -1)") //flipping bars to animate from bottom to top
-      .attr("y", -dimensions.height) // setting to -150 because it flips relative to origin
-      .attr("class", "bar")
-      .attr("fill", "#3700b3")
+      .attr("class", "bar length")
+      .style("fill", "green")
+      .attr("x", d => xScale1("length"))
+      .attr("y", d => -dimensions.height)
+      .attr("width", xScale1.bandwidth())
+      .attr("transform", "scale(1, -1)")
       .on("mouseover", (value, index) => {
         wrapper
           .append("div")
@@ -83,15 +92,18 @@ const GroupedBarChart = () => {
           .style("position", "absolute")
           .style("text-align", "center")
           .style("width", "60px")
-          .style("height", "28px")
-          .style("padding", "2px")
-          .style("background-color", "#A0A0A0")
-          .style("font-size", "1rem")
+          .style("padding", "6px")
+          .style("background-color", "#363636")
+          .style("font-size", "0.75rem")
           .style("color", index % 2 === 1 ? "#03DAC5" : "#CF6679")
-          .style("border", "0px")
+          .style(
+            "border",
+            `2px solid ${index % 2 === 1 ? "#03DAC5" : "#CF6679"}`
+          )
+          .style("font-weight", "bold")
           .style("border-radius", "4px")
           .style("pointer-events", "none")
-          .html(`${value}`)
+          .html(`${value.length}`)
           .style("left", `${event.pageX + 20}px`)
           .style("top", `${event.pageY}px`)
           .transition()
@@ -108,8 +120,95 @@ const GroupedBarChart = () => {
         wrapper.select(".tooltip").remove();
       })
       .transition()
-      .attr("height", value => dimensions.height - yScale(value))
+      .attr("height", d => dimensions.height - yScale(d.length))
       .duration(1000);
+
+    groups
+      .selectAll(".bar.diameter")
+      .data(data => [data])
+      .join("rect")
+      .attr("class", "bar diameter")
+      .style("fill", "blue")
+      .attr("x", d => xScale1("diameter"))
+      .attr("y", d => -dimensions.height)
+      .attr("width", xScale1.bandwidth())
+      .attr("transform", "scale(1, -1)")
+      .on("mouseover", (value, index) => {
+        wrapper
+          .append("div")
+          .attr("class", "tooltip")
+          .style("opacity", 0)
+          .style("position", "absolute")
+          .style("text-align", "center")
+          .style("width", "60px")
+          .style("padding", "6px")
+          .style("background-color", "#363636")
+          .style("font-size", "0.75rem")
+          .style("color", index % 2 === 1 ? "#03DAC5" : "#CF6679")
+          .style(
+            "border",
+            `2px solid ${index % 2 === 1 ? "#03DAC5" : "#CF6679"}`
+          )
+          .style("font-weight", "bold")
+          .style("border-radius", "4px")
+          .style("pointer-events", "none")
+          .html(`${value.diameter}`)
+          .style("left", `${event.pageX + 20}px`)
+          .style("top", `${event.pageY}px`)
+          .transition()
+          .style("opacity", 1)
+          .duration(200);
+      })
+      .on("mousemove", () => {
+        wrapper
+          .select(".tooltip")
+          .style("left", `${event.pageX + 15}px`)
+          .style("top", `${event.pageY}px`);
+      })
+      .on("mouseleave", () => {
+        wrapper.select(".tooltip").remove();
+      })
+      .transition()
+      .attr("height", d => dimensions.height - yScale(d.diameter))
+      .duration(1000);
+
+    // .on("mouseover", (value, index) => {
+    //   wrapper
+    //     .append("div")
+    //     .attr("class", "tooltip")
+    //     .style("opacity", 0)
+    //     .style("position", "absolute")
+    //     .style("text-align", "center")
+    //     .style("width", "60px")
+    //     .style("height", "28px")
+    //     .style("padding", "2px")
+    //     .style("background-color", "#A0A0A0")
+    //     .style("font-size", "1rem")
+    //     .style("color", index % 2 === 1 ? "#03DAC5" : "#CF6679")
+    //     .style("border", "0px")
+    //     .style("border-radius", "4px")
+    //     .style("pointer-events", "none")
+    //     .html(`${value}`)
+    //     .style("left", `${event.pageX + 20}px`)
+    //     .style("top", `${event.pageY}px`)
+    //     .transition()
+    //     .style("opacity", 1)
+    //     .duration(200);
+    // })
+    // .on("mousemove", () => {
+    //   wrapper
+    //     .select(".tooltip")
+    //     .style("left", `${event.pageX + 15}px`)
+    //     .style("top", `${event.pageY}px`);
+    // })
+    // .on("mouseleave", () => {
+    //   wrapper.select(".tooltip").remove();
+    // })
+
+    // svg.selectAll(".bar")
+    // .transition()
+    // .attr("height", value => dimensions.height - yScale(value))
+    // .duration(1000);
   }, [data, dimensions, maxLength, rockets]);
 
   return (

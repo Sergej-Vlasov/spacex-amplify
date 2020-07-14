@@ -60,12 +60,15 @@ const BarChart = () => {
           .style("position", "absolute")
           .style("text-align", "center")
           .style("width", "60px")
-          .style("height", "28px")
-          .style("padding", "2px")
-          .style("background-color", "#A0A0A0")
-          .style("font-size", "1rem")
+          .style("padding", "6px")
+          .style("background-color", "#363636")
+          .style("font-size", "0.75rem")
           .style("color", index % 2 === 1 ? "#03DAC5" : "#CF6679")
-          .style("border", "0px")
+          .style(
+            "border",
+            `2px solid ${index % 2 === 1 ? "#03DAC5" : "#CF6679"}`
+          )
+          .style("font-weight", "bold")
           .style("border-radius", "4px")
           .style("pointer-events", "none")
           .html(`${value}`)
