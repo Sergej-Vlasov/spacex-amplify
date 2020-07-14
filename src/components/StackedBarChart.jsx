@@ -12,51 +12,54 @@ import {
 import { UseResizeObserver } from "../hooks";
 import { SVG, SVGWrapper } from "../styledComponents";
 
-const data = [
-  {
-    year: 1980,
-    "🥑": 10,
-    "🍌": 20,
-    "🍆": 30
-  },
-  {
-    year: 1990,
-    "🥑": 20,
-    "🍌": 40,
-    "🍆": 60
-  },
-  {
-    year: 2000,
-    "🥑": 30,
-    "🍌": 45,
-    "🍆": 80
-  },
-  {
-    year: 2010,
-    "🥑": 40,
-    "🍌": 60,
-    "🍆": 100
-  },
-  {
-    year: 2020,
-    "🥑": 50,
-    "🍌": 80,
-    "🍆": 120
-  }
-];
+// const data = [
+//   {
+//     year: 1980,
+//     "🥑": 10,
+//     "🍌": 20,
+//     "🍆": 30
+//   },
+//   {
+//     year: 1990,
+//     "🥑": 20,
+//     "🍌": 40,
+//     "🍆": 60
+//   },
+//   {
+//     year: 2000,
+//     "🥑": 30,
+//     "🍌": 45,
+//     "🍆": 80
+//   },
+//   {
+//     year: 2010,
+//     "🥑": 40,
+//     "🍌": 60,
+//     "🍆": 100
+//   },
+//   {
+//     year: 2020,
+//     "🥑": 50,
+//     "🍌": 80,
+//     "🍆": 120
+//   }
+// ];
 
-const keys = ["🥑", "🍌", "🍆"];
+// const keys = ["🥑", "🍌", "🍆"];
 
-const sequenceAttribute = "year";
+// const sequenceAttribute = "year";
 
-const colors = {
-  "🥑": "#64dd17",
-  "🍌": "#dd3333",
-  "🍆": "#03DAC5"
-};
+// const colors = {
+//   "🥑": "#64dd17",
+//   "🍌": "#dd3333",
+//   "🍆": "#03DAC5"
+// };
 
 const StackedBarChart = ({
-  // data, keys, colors,
+  data,
+  keys,
+  colors,
+  sequenceAttribute,
   chartColour = "#BB86FC"
 }) => {
   const svgRef = useRef();
@@ -151,7 +154,7 @@ const StackedBarChart = ({
 
     const yAxis = axisLeft(yScale);
     svg.select(".y-axis").style("color", chartColour).call(yAxis);
-  }, [dimensions, chartColour, data, keys, colors]);
+  }, [dimensions, chartColour, data, keys, colors, sequenceAttribute]);
 
   return (
     <SVGWrapper ref={wrapperRef}>

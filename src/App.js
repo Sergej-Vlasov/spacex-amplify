@@ -1,17 +1,17 @@
 import React from "react";
 import { Container, Global } from "./styledComponents";
-import {
-  LineChart,
-  BarChart,
-  StackedBarChart,
-  GroupedBarChart
-} from "./components";
+// import {
+//   LineChart,
+//   BarChart,
+//   StackedBarChart,
+//   GroupedBarChart
+// } from "./components";
 
 const App = () => {
   return (
     <div>
       <Global />
-      <Container>
+      {/* <Container>
         <GroupedBarChart />
       </Container>
       <Container>
@@ -22,7 +22,7 @@ const App = () => {
       </Container>
       <Container>
         <StackedBarChart />
-      </Container>
+      </Container> */}
     </div>
   );
 };

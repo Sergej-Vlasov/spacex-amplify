@@ -61,39 +61,39 @@ const barChartFields = ["field1", "field2"];
 const barChartColours = { field1: "#03DAC5", field2: "#CF6679" };
  */
 
-const data = [
-  {
-    category: "cat1",
-    field1: 10,
-    field2: 20
-  },
-  {
-    category: "cat2",
-    field1: 10,
-    field2: 20
-  },
-  {
-    category: "cat3",
-    field1: 10,
-    field2: 20
-  },
-  {
-    category: "cat4",
-    field1: 10,
-    field2: 20
-  }
-];
-const categories = ["cat1", "cat2", "cat3", "cat4"];
+// const data = [
+//   {
+//     category: "cat1",
+//     field1: 10,
+//     field2: 20
+//   },
+//   {
+//     category: "cat2",
+//     field1: 10,
+//     field2: 20
+//   },
+//   {
+//     category: "cat3",
+//     field1: 10,
+//     field2: 20
+//   },
+//   {
+//     category: "cat4",
+//     field1: 10,
+//     field2: 20
+//   }
+// ];
+// const categories = ["cat1", "cat2", "cat3", "cat4"];
 
-const barChartFields = ["field1", "field2"];
+// const barChartFields = ["field1", "field2"];
 
-const barChartColours = { field1: "#03DAC5", field2: "#f44336" };
+// const barChartColours = { field1: "#03DAC5", field2: "#f44336" };
 
 const GroupedBarChart = ({
-  // data,
-  // categories,
-  // barChartFields,
-  // barChartColours,
+  data,
+  categories,
+  barChartFields,
+  barChartColours,
   chartColour = "#BB86FC"
 }) => {
   const svgRef = useRef();
@@ -215,93 +215,6 @@ const GroupedBarChart = ({
         (d, i) => dimensions.height - yScale(d[barChartFields[i]])
       )
       .duration(1000);
-
-    // groups
-    //   .selectAll(".bar.diameter")
-    //   .data(data => [data])
-    //   .join("rect")
-    //   .attr("class", "bar diameter")
-    //   .style("fill", "blue")
-    //   .attr("x", d => xScale1("diameter"))
-    //   .attr("y", d => -dimensions.height)
-    //   .attr("width", xScale1.bandwidth())
-    //   .attr("transform", "scale(1, -1)")
-    //   .on("mouseover", (value, index) => {
-    //     wrapper
-    //       .append("div")
-    //       .attr("class", "tooltip")
-    //       .style("opacity", 0)
-    //       .style("position", "absolute")
-    //       .style("text-align", "center")
-    //       .style("width", "60px")
-    //       .style("padding", "6px")
-    //       .style("background-color", "#363636")
-    //       .style("font-size", "0.75rem")
-    //       .style("color", index % 2 === 1 ? "#03DAC5" : "#CF6679")
-    //       .style(
-    //         "border",
-    //         `2px solid ${index % 2 === 1 ? "#03DAC5" : "#CF6679"}`
-    //       )
-    //       .style("font-weight", "bold")
-    //       .style("border-radius", "4px")
-    //       .style("pointer-events", "none")
-    //       .html(`${value.diameter}`)
-    //       .style("left", `${event.pageX + 20}px`)
-    //       .style("top", `${event.pageY}px`)
-    //       .transition()
-    //       .style("opacity", 1)
-    //       .duration(200);
-    //   })
-    //   .on("mousemove", () => {
-    //     wrapper
-    //       .select(".tooltip")
-    //       .style("left", `${event.pageX + 15}px`)
-    //       .style("top", `${event.pageY}px`);
-    //   })
-    //   .on("mouseleave", () => {
-    //     wrapper.select(".tooltip").remove();
-    //   })
-    //   .transition()
-    //   .attr("height", d => dimensions.height - yScale(d.diameter))
-    //   .duration(1000);
-
-    // .on("mouseover", (value, index) => {
-    //   wrapper
-    //     .append("div")
-    //     .attr("class", "tooltip")
-    //     .style("opacity", 0)
-    //     .style("position", "absolute")
-    //     .style("text-align", "center")
-    //     .style("width", "60px")
-    //     .style("height", "28px")
-    //     .style("padding", "2px")
-    //     .style("background-color", "#A0A0A0")
-    //     .style("font-size", "1rem")
-    //     .style("color", index % 2 === 1 ? "#03DAC5" : "#CF6679")
-    //     .style("border", "0px")
-    //     .style("border-radius", "4px")
-    //     .style("pointer-events", "none")
-    //     .html(`${value}`)
-    //     .style("left", `${event.pageX + 20}px`)
-    //     .style("top", `${event.pageY}px`)
-    //     .transition()
-    //     .style("opacity", 1)
-    //     .duration(200);
-    // })
-    // .on("mousemove", () => {
-    //   wrapper
-    //     .select(".tooltip")
-    //     .style("left", `${event.pageX + 15}px`)
-    //     .style("top", `${event.pageY}px`);
-    // })
-    // .on("mouseleave", () => {
-    //   wrapper.select(".tooltip").remove();
-    // })
-
-    // svg.selectAll(".bar")
-    // .transition()
-    // .attr("height", value => dimensions.height - yScale(value))
-    // .duration(1000);
   }, [
     data,
     dimensions,

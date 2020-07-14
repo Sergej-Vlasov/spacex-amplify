@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import {
   select,
   line,
@@ -10,8 +10,16 @@ import {
 import { SVG, SVGWrapper } from "../styledComponents";
 import { UseResizeObserver } from "../hooks";
 
-const LineChart = ({ chartColour = "#BB86FC" }) => {
-  const [data] = useState([25, 30, 45, 60, 20, 65, 75]);
+/*
+    PROPS
+    data: [1, 2, 3, 4, 5]
+
+
+*/
+
+// const data = [25, 30, 45, 60, 20, 65, 75];
+
+const LineChart = ({ data, chartColour = "#BB86FC" }) => {
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = UseResizeObserver(wrapperRef);

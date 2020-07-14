@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import {
   select,
   axisBottom,
@@ -19,34 +19,34 @@ import { UseResizeObserver } from "../hooks";
     categoryColours: ["#111111", "#222222", ...]
 
 */
-const data = [3, 9, 4, 1, 10, 6, 8, 2];
+// const sampleData = [3, 9, 4, 1, 10, 6, 8, 2];
 
-const categories = [
-  "cat1",
-  "cat2",
-  "cat3",
-  "cat4",
-  "cat5",
-  "cat6",
-  "cat7",
-  "cat8"
-];
+// const categories = [
+//   "cat1",
+//   "cat2",
+//   "cat3",
+//   "cat4",
+//   "cat5",
+//   "cat6",
+//   "cat7",
+//   "cat8"
+// ];
 
-const categoryColours = [
-  "#64dd17",
-  "#dd2c00",
-  "#64dd17",
-  "#f44336",
-  "#64dd17",
-  "#dd2c00",
-  "#64dd17",
-  "#f44336"
-];
+// const categoryColours = [
+//   "#64dd17",
+//   "#dd2c00",
+//   "#64dd17",
+//   "#f44336",
+//   "#64dd17",
+//   "#dd2c00",
+//   "#64dd17",
+//   "#f44336"
+// ];
 
 const BarChart = ({
-  // data,
-  // categories,
-  // categoryColours,
+  data,
+  categories,
+  categoryColours,
   chartColour = "#BB86FC"
 }) => {
   const svgRef = useRef();
@@ -139,7 +139,7 @@ const BarChart = ({
       .transition()
       .attr("height", value => dimensions.height - yScale(value))
       .duration(1000);
-  }, [data, dimensions, maxY, chartColour]);
+  }, [data, dimensions, maxY, chartColour, categories, categoryColours]);
 
   return (
     <>
