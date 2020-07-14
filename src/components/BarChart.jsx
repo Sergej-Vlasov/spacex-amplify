@@ -10,11 +10,50 @@ import {
 import { SVG, SVGWrapper } from "../styledComponents";
 import { UseResizeObserver } from "../hooks";
 
-const BarChart = () => {
-  const [data] = useState([25, 30, 45, 60, 20, 65, 75]);
+/*
+    PROPS
+    data: [1, 2, 3, 4, 5]
+
+    categories: ['cat1', "cat2"...]
+
+    categoryColours: ["#111111", "#222222", ...]
+
+*/
+const data = [3, 9, 4, 1, 10, 6, 8, 2];
+
+const categories = [
+  "cat1",
+  "cat2",
+  "cat3",
+  "cat4",
+  "cat5",
+  "cat6",
+  "cat7",
+  "cat8"
+];
+
+const categoryColours = [
+  "#64dd17",
+  "#dd2c00",
+  "#64dd17",
+  "#f44336",
+  "#64dd17",
+  "#dd2c00",
+  "#64dd17",
+  "#f44336"
+];
+
+const BarChart = ({
+  // data,
+  // categories,
+  // categoryColours,
+  chartColour = "#BB86FC"
+}) => {
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = UseResizeObserver(wrapperRef);
+
+  const maxY = data.reduce((acc, val) => (val > acc ? val : acc), 0);
 
   useEffect(() => {
     if (!dimensions) return;
@@ -23,12 +62,14 @@ const BarChart = () => {
 
     const wrapper = select(wrapperRef.current);
 
-    const yScale = scaleLinear().domain([0, 150]).range([dimensions.height, 0]);
+    const yScale = scaleLinear()
+      .domain([0, Math.round(maxY * 1.3)])
+      .range([dimensions.height, 0]);
 
     const xScale = scaleBand()
-      .domain(data.map((value, index) => index))
+      .domain(categories)
       .range([0, dimensions.width])
-      .padding(0.5);
+      .padding(0.3);
 
     const xAxis = axisBottom(xScale).ticks(data.length);
 
@@ -37,19 +78,30 @@ const BarChart = () => {
     svg
       .select(".x-axis")
       .style("transform", `translateY(${dimensions.height}px)`)
-      .style("color", "#BB86FC")
-      .call(xAxis);
+      .style("color", chartColour)
+      .style("opacity", "0")
+      .call(xAxis)
+      .transition()
+      .style("opacity", "1")
+      .duration(700);
 
-    svg.select(".y-axis").style("color", "#BB86FC").call(yAxis);
+    svg
+      .select(".y-axis")
+      .style("color", chartColour)
+      .style("opacity", "0")
+      .call(yAxis)
+      .transition()
+      .style("opacity", "1")
+      .duration(700);
 
     svg
       .selectAll(".bar")
       .data(data)
       .join("rect")
       .attr("class", "bar")
-      .attr("fill", (value, index) => (index % 2 === 1 ? "#03DAC5" : "#CF6679"))
+      .attr("fill", (d, i) => categoryColours[i])
       .style("transform", "scale(1, -1)") //flipping bars to animate from bottom to top
-      .attr("x", (value, index) => xScale(index))
+      .attr("x", (d, i) => xScale(categories[i]))
       .attr("y", -dimensions.height) // setting to -150 because it flips relative to origin
       .attr("width", xScale.bandwidth())
       .on("mouseover", (value, index) => {
@@ -63,11 +115,8 @@ const BarChart = () => {
           .style("padding", "6px")
           .style("background-color", "#363636")
           .style("font-size", "0.75rem")
-          .style("color", index % 2 === 1 ? "#03DAC5" : "#CF6679")
-          .style(
-            "border",
-            `2px solid ${index % 2 === 1 ? "#03DAC5" : "#CF6679"}`
-          )
+          .style("color", categoryColours[index])
+          .style("border", `2px solid ${categoryColours[index]}`)
           .style("font-weight", "bold")
           .style("border-radius", "4px")
           .style("pointer-events", "none")
@@ -90,7 +139,7 @@ const BarChart = () => {
       .transition()
       .attr("height", value => dimensions.height - yScale(value))
       .duration(1000);
-  }, [data, dimensions]);
+  }, [data, dimensions, maxY, chartColour]);
 
   return (
     <>

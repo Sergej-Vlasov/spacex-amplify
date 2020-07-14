@@ -10,18 +10,22 @@ import {
 import { SVG, SVGWrapper } from "../styledComponents";
 import { UseResizeObserver } from "../hooks";
 
-const LineChart = () => {
+const LineChart = ({ chartColour = "#BB86FC" }) => {
   const [data] = useState([25, 30, 45, 60, 20, 65, 75]);
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = UseResizeObserver(wrapperRef);
+
+  const maxY = data.reduce((acc, val) => (val > acc ? val : acc), 0);
 
   useEffect(() => {
     if (!dimensions) return;
 
     const svg = select(svgRef.current);
 
-    const yScale = scaleLinear().domain([0, 150]).range([dimensions.height, 0]);
+    const yScale = scaleLinear()
+      .domain([0, Math.round(maxY * 1.3)])
+      .range([dimensions.height, 0]);
 
     const xScale = scaleLinear()
       .domain([0, data.length - 1])
@@ -35,10 +39,21 @@ const LineChart = () => {
     svg
       .select(".x-axis")
       .style("transform", `translateY(${dimensions.height}px)`)
-      .style("color", "#BB86FC")
-      .call(xAxis);
+      .style("opacity", "0")
+      .style("color", chartColour)
+      .call(xAxis)
+      .transition()
+      .style("opacity", "1")
+      .duration(700);
 
-    svg.select(".y-axis").style("color", "#BB86FC").call(yAxis);
+    svg
+      .select(".y-axis")
+      .style("color", chartColour)
+      .style("opacity", "0")
+      .call(yAxis)
+      .transition()
+      .style("opacity", "1")
+      .duration(700);
 
     const myLine = line()
       .x((value, index) => xScale(index))
@@ -65,7 +80,7 @@ const LineChart = () => {
       .transition()
       .attr("stroke-dashoffset", 0)
       .duration(1000);
-  }, [data, dimensions]);
+  }, [data, dimensions, chartColour, maxY]);
 
   return (
     <>

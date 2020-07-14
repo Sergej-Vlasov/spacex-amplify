@@ -7,7 +7,6 @@ import {
   max,
   scaleLinear,
   axisLeft,
-  stackOrderAscending,
   event
 } from "d3";
 import { UseResizeObserver } from "../hooks";
@@ -48,41 +47,42 @@ const data = [
 
 const keys = ["🥑", "🍌", "🍆"];
 
+const sequenceAttribute = "year";
+
 const colors = {
-  "🥑": "#03DAC5",
-  "🍌": "#CF6679",
+  "🥑": "#64dd17",
+  "🍌": "#dd3333",
   "🍆": "#03DAC5"
 };
 
-const StackedBarChart = () => {
+const StackedBarChart = ({
+  // data, keys, colors,
+  chartColour = "#BB86FC"
+}) => {
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = UseResizeObserver(wrapperRef);
 
-  // will be called initially and on every data change
   useEffect(() => {
     const wrapper = select(wrapperRef.current);
     const svg = select(svgRef.current);
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect();
 
-    // stacks / layers
-    const stackGenerator = stack().keys(keys).order(stackOrderAscending);
+    const stackGenerator = stack().keys(keys);
     const layers = stackGenerator(data);
     const extent = [
       0,
       max(layers, layer => max(layer, sequence => sequence[1]))
     ];
 
-    // scales
     const xScale = scaleBand()
-      .domain(data.map(d => d.year))
+      .domain(data.map(d => d[sequenceAttribute]))
       .range([0, width])
       .padding(0.25);
 
     const yScale = scaleLinear().domain(extent).range([height, 0]);
 
-    // rendering
     svg
       .selectAll(".layer")
       .data(layers)
@@ -93,7 +93,7 @@ const StackedBarChart = () => {
       .selectAll("rect")
       .data(layer => layer)
       .join("rect")
-      .attr("x", sequence => xScale(sequence.data.year))
+      .attr("x", sequence => xScale(sequence.data[sequenceAttribute]))
       .attr("width", xScale.bandwidth())
       .attr("y", sequence => -yScale(sequence[0]))
       .on("mouseover", (sequence, index) => {
@@ -138,30 +138,20 @@ const StackedBarChart = () => {
       .delay(sequence => {
         const key = Object.entries(sequence.data)
           .filter(([key]) => keys.includes(key))
-          .find(([key, value]) => value === sequence[1] - sequence[0]);
-        switch (key[0]) {
-          case "🥑":
-            return 0;
-          case "🍌":
-            return 310;
-          case "🍆":
-            return 620;
-          default:
-            return 0;
-        }
+          .find(([key, value]) => value === sequence[1] - sequence[0])[0];
+        return (930 / keys.length) * keys.indexOf(key);
       });
 
-    // axes
     const xAxis = axisBottom(xScale);
     svg
       .select(".x-axis")
-      .style("color", "#BB86FC")
+      .style("color", chartColour)
       .attr("transform", `translate(0, ${height})`)
       .call(xAxis);
 
     const yAxis = axisLeft(yScale);
-    svg.select(".y-axis").style("color", "#BB86FC").call(yAxis);
-  }, [dimensions]);
+    svg.select(".y-axis").style("color", chartColour).call(yAxis);
+  }, [dimensions, chartColour, data, keys, colors]);
 
   return (
     <SVGWrapper ref={wrapperRef}>
