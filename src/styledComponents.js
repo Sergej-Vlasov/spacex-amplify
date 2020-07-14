@@ -36,3 +36,8 @@ export const SVG = styled.svg`
 export const SVGWrapper = styled.div`
   padding: 1.25rem 0.5rem 1.25rem 1.75rem;
 `;
+
+export const LogoContainer = styled.div`
+  padding: 1rem;
+  height: 2rem;
+`;

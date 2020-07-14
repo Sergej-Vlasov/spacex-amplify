@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, Global } from "./styledComponents";
+import { Container, LogoContainer, Global } from "./styledComponents";
+import { SpacexLogo } from "./assets/spacexLogo";
 // import {
 //   LineChart,
 //   BarChart,
@@ -11,6 +12,10 @@ const App = () => {
   return (
     <div>
       <Global />
+      <LogoContainer>
+        <SpacexLogo />
+      </LogoContainer>
+
       {/* <Container>
         <GroupedBarChart />
       </Container>
