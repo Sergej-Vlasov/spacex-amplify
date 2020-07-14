@@ -19,7 +19,7 @@ import { UseResizeObserver } from "../hooks";
 
 // const data = [25, 30, 45, 60, 20, 65, 75];
 
-const LineChart = ({ data, chartColour = "#BB86FC" }) => {
+const LineChart = ({ data, customMaxY, chartColour = "#BB86FC" }) => {
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = UseResizeObserver(wrapperRef);
@@ -32,7 +32,7 @@ const LineChart = ({ data, chartColour = "#BB86FC" }) => {
     const svg = select(svgRef.current);
 
     const yScale = scaleLinear()
-      .domain([0, Math.round(maxY * 1.3)])
+      .domain([0, customMaxY || Math.round(maxY * 1.3)])
       .range([dimensions.height, 0]);
 
     const xScale = scaleLinear()

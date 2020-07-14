@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components/macro";
+import styled, { createGlobalStyle, keyframes } from "styled-components/macro";
 
 export const Global = createGlobalStyle`
 
@@ -38,6 +38,25 @@ export const SVGWrapper = styled.div`
 `;
 
 export const LogoContainer = styled.div`
-  padding: 1rem;
-  height: 2rem;
+  display: inline-block;
+  width: 20rem;
+  padding: 0.5rem;
+`;
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  border-bottom: 2px solid #2f2f2f;
+  box-shadow: 0 3px 6px #2f2f2f;
+`;
+
+const glow = keyframes`
+  0% { opacity: 0.2 }
+  50% { opacity: 0.8 }
+  100% { opacity: 0.2 }
+`;
+
+export const LoadingPlaceholder = styled.div`
+  display: inline-block;
+  width: 10rem;
+  animation: ${glow} 2s ease-in-out infinite;
 `;
