@@ -111,7 +111,7 @@ const BarChart = ({
           .style("opacity", 0)
           .style("position", "absolute")
           .style("text-align", "center")
-          .style("width", "60px")
+          .style("width", "70px")
           .style("padding", "6px")
           .style("background-color", "#363636")
           .style("font-size", "0.75rem")

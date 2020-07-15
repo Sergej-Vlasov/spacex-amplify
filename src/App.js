@@ -1,7 +1,7 @@
 import React from "react";
 import { Global } from "./styledComponents";
 
-import { Header, LaunchHistory, FirstStageRecovery } from "./sections";
+import { Header, LaunchHistory, FirstStageRecovery, Rockets } from "./sections";
 
 const App = () => {
   return (
@@ -10,6 +10,7 @@ const App = () => {
       <Header />
       <LaunchHistory />
       <FirstStageRecovery />
+      <Rockets />
     </>
   );
 };

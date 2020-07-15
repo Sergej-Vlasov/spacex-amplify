@@ -93,7 +93,7 @@ export const Button = styled.div`
   top: 1.5rem;
   right: 0;
   border-radius: 4px;
-  color: #bb86fc;
+  color: #03dac5;
   text-transform: uppercase;
   font-weight: bold;
   background: transparent;
@@ -105,7 +105,7 @@ export const Button = styled.div`
 export const ComponentWrapper = styled.div`
   background: transparent;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   height: 100%;
   margin: 1rem 0;
 `;

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { listLaunchs } from "../../graphql/queries";
-
 import {
   ChartContainer,
   ChartHeader,
