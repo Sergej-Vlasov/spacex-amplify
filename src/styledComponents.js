@@ -14,14 +14,13 @@ export const Global = createGlobalStyle`
   }
 `;
 
-export const Container = styled.div`
-  margin: 1rem auto;
-  height: 40vh;
-  width: 40vw;
+export const LaunchHistoryChartContainer = styled.div`
+  margin: 0 auto;
+  height: 50vh;
+  width: 100%;
   background-color: #363636;
   border-radius: 0.25rem;
   text-align: middle;
-  display: flex;
   justify-content: center;
   align-items: center;
 `;
@@ -35,6 +34,8 @@ export const SVG = styled.svg`
 
 export const SVGWrapper = styled.div`
   padding: 1.25rem 0.5rem 1.25rem 1.75rem;
+  height: 100%;
+  width: 100%;
 `;
 
 export const LogoContainer = styled.div`
@@ -57,6 +58,61 @@ const glow = keyframes`
 
 export const LoadingPlaceholder = styled.div`
   display: inline-block;
+  margin: auto;
   width: 10rem;
   animation: ${glow} 2s ease-in-out infinite;
+`;
+
+export const LoadingWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+`;
+
+export const ChartHeader = styled.h3`
+  display: block;
+  text-align: center;
+  padding-bottom: 1rem;
+  color: #bb86fc;
+`;
+
+export const ChartHeaderWrapper = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
+`;
+
+export const ChartComponentWrapper = styled.div`
+  background: #363636;
+  height: 100%;
+  margin: 1rem auto;
+`;
+
+export const Button = styled.div`
+  position: absolute;
+  top: 1.5rem;
+  right: 0;
+  border-radius: 4px;
+  color: #bb86fc;
+  text-transform: uppercase;
+  font-weight: bold;
+  background: transparent;
+  padding: 0.25rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+`;
+
+export const LaunchHistoryComponentWrapper = styled.div`
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  margin: 1rem 1rem;
+`;
+
+export const LaunchHistoryBlockWrapper = styled.div`
+  background: #363636;
+  padding: 2rem;
+  width: ${props => props.width};
+  height: 100%;
 `;

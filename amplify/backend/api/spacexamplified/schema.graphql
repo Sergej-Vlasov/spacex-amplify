@@ -37,8 +37,9 @@ type Launch @model @key(fields: ["name"]) {
   net: Boolean
   window: Int
   rocket: String
+  success: Boolean
   failures: [String]
-  upcoming: Boolean
+  upcoming: Boolean!
   details: String
   fairings: LaunchFairings
   crew: [String]
@@ -266,6 +267,7 @@ type LaunchFetch {
   net: Boolean
   window: Int
   rocket: String
+  success: Boolean
   failures: [String]
   upcoming: Boolean
   details: String

@@ -1,5 +1,5 @@
 import React from "react";
-import { Global, LoadingPlaceholder } from "./styledComponents";
+import { Global } from "./styledComponents";
 
 import { Header, LaunchHistory } from "./sections";
 
