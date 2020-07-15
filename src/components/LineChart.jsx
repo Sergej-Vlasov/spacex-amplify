@@ -1,12 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import {
-  select,
-  line,
-  curveCardinal,
-  axisBottom,
-  axisLeft,
-  scaleLinear
-} from "d3";
+import { select, line, axisBottom, axisLeft, scaleLinear } from "d3";
 import { SVG, SVGWrapper } from "../styledComponents";
 import { UseResizeObserver } from "../hooks";
 
@@ -19,7 +12,7 @@ import { UseResizeObserver } from "../hooks";
 
 // const data = [25, 30, 45, 60, 20, 65, 75];
 
-const LineChart = ({ data, chartColour = "#BB86FC" }) => {
+const LineChart = ({ data, customMaxY, chartColour = "#BB86FC" }) => {
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = UseResizeObserver(wrapperRef);
@@ -32,7 +25,7 @@ const LineChart = ({ data, chartColour = "#BB86FC" }) => {
     const svg = select(svgRef.current);
 
     const yScale = scaleLinear()
-      .domain([0, Math.round(maxY * 1.3)])
+      .domain([0, customMaxY || Math.round(maxY * 1.3)])
       .range([dimensions.height, 0]);
 
     const xScale = scaleLinear()
@@ -40,7 +33,7 @@ const LineChart = ({ data, chartColour = "#BB86FC" }) => {
       .range([0, dimensions.width]);
 
     const xAxis = axisBottom(xScale)
-      .ticks(data.length)
+      .ticks(32)
       .tickFormat(index => index + 1);
     const yAxis = axisLeft(yScale);
 
@@ -65,8 +58,8 @@ const LineChart = ({ data, chartColour = "#BB86FC" }) => {
 
     const myLine = line()
       .x((value, index) => xScale(index))
-      .y(yScale)
-      .curve(curveCardinal);
+      .y(yScale);
+    // .curve(curveCardinal);
 
     svg
       .selectAll(".line")
@@ -88,7 +81,7 @@ const LineChart = ({ data, chartColour = "#BB86FC" }) => {
       .transition()
       .attr("stroke-dashoffset", 0)
       .duration(1000);
-  }, [data, dimensions, chartColour, maxY]);
+  }, [data, dimensions, chartColour, maxY, customMaxY]);
 
   return (
     <>

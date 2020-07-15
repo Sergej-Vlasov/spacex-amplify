@@ -296,6 +296,7 @@ export const onCreateLaunch = /* GraphQL */ `
       net
       window
       rocket
+      success
       failures
       upcoming
       details
@@ -397,6 +398,7 @@ export const onUpdateLaunch = /* GraphQL */ `
       net
       window
       rocket
+      success
       failures
       upcoming
       details
@@ -498,6 +500,7 @@ export const onDeleteLaunch = /* GraphQL */ `
       net
       window
       rocket
+      success
       failures
       upcoming
       details
@@ -605,6 +608,7 @@ export const onCreatePayload = /* GraphQL */ `
         net
         window
         rocket
+        success
         failures
         upcoming
         details
@@ -701,6 +705,7 @@ export const onUpdatePayload = /* GraphQL */ `
         net
         window
         rocket
+        success
         failures
         upcoming
         details
@@ -797,6 +802,7 @@ export const onDeletePayload = /* GraphQL */ `
         net
         window
         rocket
+        success
         failures
         upcoming
         details

@@ -107,6 +107,7 @@ export const fetchLaunches = /* GraphQL */ `
       net
       window
       rocket
+      success
       failures
       upcoming
       details
@@ -380,6 +381,7 @@ export const getLaunch = /* GraphQL */ `
       net
       window
       rocket
+      success
       failures
       upcoming
       details
@@ -494,6 +496,7 @@ export const listLaunchs = /* GraphQL */ `
         net
         window
         rocket
+        success
         failures
         upcoming
         details
@@ -558,6 +561,7 @@ export const getPayload = /* GraphQL */ `
         net
         window
         rocket
+        success
         failures
         upcoming
         details
@@ -659,6 +663,7 @@ export const listPayloads = /* GraphQL */ `
           net
           window
           rocket
+          success
           failures
           upcoming
           details
@@ -723,6 +728,7 @@ export const fetchLaunch = /* GraphQL */ `
       net
       window
       rocket
+      success
       failures
       upcoming
       details
