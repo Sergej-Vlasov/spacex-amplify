@@ -76,7 +76,7 @@ const StackedBarChart = ({
     const layers = stackGenerator(data);
     const extent = [
       0,
-      max(layers, layer => max(layer, sequence => sequence[1]))
+      max(layers, layer => max(layer, sequence => sequence[1])) * 1.2
     ];
 
     const xScale = scaleBand()

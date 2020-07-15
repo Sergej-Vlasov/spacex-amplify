@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { LineChart, LoadingLogo } from "../../../components";
 import { LoadingWrapper } from "../../../styledComponents";
 
-const LaunchSuccessRate = ({ launches }) => {
+const RecoverySuccessRate = ({ launches }) => {
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
@@ -10,10 +10,22 @@ const LaunchSuccessRate = ({ launches }) => {
       const chartData = launches
         .sort((a, b) => a.flight_number - b.flight_number)
         .reduce((acc, launch) => {
+          const didAttempt = launch.cores.reduce(
+            (acc, core) => (acc ? acc : core.landing_attempt ? true : false),
+            false
+          );
+
+          if (!didAttempt) return acc;
+
+          const amountLanded = launch.cores.reduce(
+            (acc, core) => (core.landing_success ? acc + 1 : acc),
+            0
+          );
+
           if (!acc.length) {
-            return [launch.success ? 1 : 0];
+            return [amountLanded];
           } else {
-            return [...acc, acc[acc.length - 1] + (launch.success ? 1 : 0)];
+            return [...acc, acc[acc.length - 1] + amountLanded];
           }
         }, [])
         .map((rate, index) => (rate / (index + 1)) * 100);
@@ -35,4 +47,4 @@ const LaunchSuccessRate = ({ launches }) => {
   );
 };
 
-export default LaunchSuccessRate;
+export default RecoverySuccessRate;

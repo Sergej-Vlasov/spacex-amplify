@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { listLaunchs } from "../../graphql/queries";
+
 import {
   ChartContainer,
   ChartHeader,
@@ -9,11 +10,11 @@ import {
   Button,
   ChartBlockWrapper
 } from "../../styledComponents";
-import LaunchSuccessPerYear from "./components/LaunchSuccesPerYear";
-import LaunchSuccessRate from "./components/LaunchSuccessRate";
-import TotalSuccessFailure from "./components/TotalSuccessFailure";
+import RecoverySuccessPerYear from "./components/RecoverySuccessPerYear";
+import RecoverySuccessRate from "./components/RecoverySuccessRate";
+import TotalRecoverySuccessFailure from "./components/TotalRecoverySuccessFailure";
 
-const LaunchHistory = () => {
+const FirstStageRecovery = () => {
   const [launches, setLaunches] = useState(null);
   const [showRate, setShowRate] = useState(false);
 
@@ -36,7 +37,7 @@ const LaunchHistory = () => {
         <ChartBlockWrapper width="65%">
           <ChartHeaderWrapper>
             <ChartHeader>
-              SpaceX Rocket Launch{" "}
+              Rocket 1st Stage Core Recovery{" "}
               {!showRate
                 ? "Success/Failed per Year"
                 : "Success Rate per Launch"}
@@ -47,16 +48,16 @@ const LaunchHistory = () => {
           </ChartHeaderWrapper>
           <ChartContainer>
             {showRate ? (
-              <LaunchSuccessRate launches={launches} />
+              <RecoverySuccessRate launches={launches} />
             ) : (
-              <LaunchSuccessPerYear launches={launches} />
+              <RecoverySuccessPerYear launches={launches} />
             )}
           </ChartContainer>
         </ChartBlockWrapper>
         <ChartBlockWrapper width="32%">
-          <ChartHeader>Total Launch Success/Failed </ChartHeader>
+          <ChartHeader>Total Core Recovery Success/Failed </ChartHeader>
           <ChartContainer>
-            <TotalSuccessFailure launches={launches} />
+            <TotalRecoverySuccessFailure launches={launches} />
           </ChartContainer>
         </ChartBlockWrapper>
       </ComponentWrapper>
@@ -64,4 +65,4 @@ const LaunchHistory = () => {
   );
 };
 
-export default LaunchHistory;
+export default FirstStageRecovery;
