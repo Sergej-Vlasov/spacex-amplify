@@ -40,7 +40,7 @@ const FirstStageRecovery = () => {
               Rocket 1st Stage Core Recovery{" "}
               {!showRate
                 ? "Success/Failed per Year"
-                : "Success Rate per Launch"}
+                : "Success Rate per Attempt"}
             </ChartHeader>
             <Button onClick={() => setShowRate(showRate => !showRate)}>
               {!showRate ? "Show success rate" : "Show per year"}

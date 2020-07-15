@@ -36,7 +36,7 @@ const LaunchHistory = () => {
           <ChartHeaderWrapper>
             <ChartHeader>
               SpaceX Rocket Height/Diameter{" "}
-              {showMetric ? "in Meters" : "in feet"}
+              {showMetric ? "in Meters" : "in Feet"}
             </ChartHeader>
             <Button onClick={() => setShowMetric(metric => !metric)}>
               {showMetric ? "Show Imperial" : "Show Metric"}
