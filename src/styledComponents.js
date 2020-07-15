@@ -14,7 +14,7 @@ export const Global = createGlobalStyle`
   }
 `;
 
-export const LaunchHistoryChartContainer = styled.div`
+export const ChartContainer = styled.div`
   margin: 0 auto;
   height: 50vh;
   width: 100%;
@@ -102,15 +102,15 @@ export const Button = styled.div`
   font-size: 0.75rem;
 `;
 
-export const LaunchHistoryComponentWrapper = styled.div`
+export const ComponentWrapper = styled.div`
   background: transparent;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   height: 100%;
-  margin: 1rem 1rem;
+  margin: 1rem 0;
 `;
 
-export const LaunchHistoryBlockWrapper = styled.div`
+export const ChartBlockWrapper = styled.div`
   background: #363636;
   padding: 2rem;
   width: ${props => props.width};
