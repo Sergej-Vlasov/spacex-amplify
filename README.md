@@ -9,7 +9,7 @@
 Clone the repository and navigate to it
 
 ```
-git clone https://github.com/Sergej-Vlasov/spacex-amplify.git && cd weather-forecast
+git clone https://github.com/Sergej-Vlasov/spacex-amplify.git && cd spacex-amplify
 ```
 
 install dependencies
