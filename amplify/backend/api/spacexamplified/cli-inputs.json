@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "serviceName": "AppSync",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 365,
+      "apiKeyExpirationDate": "2023-06-16T13:17:58.362Z",
+      "keyDescription": "spaceXgraphQLkey"
+    },
+    "conflictResolution": {},
+    "apiName": "spacexamplified",
+    "gqlSchemaPath": "/Users/sergejvlasov/dev/spacex-amplify/amplify/backend/api/spacexamplified/schema.graphql",
+    "additionalAuthTypes": []
+  }
+}
