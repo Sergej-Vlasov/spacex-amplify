@@ -1,29 +1,31 @@
 {
-	"api": {
-		"spacexamplified": {
-			"service": "AppSync",
-			"providerPlugin": "awscloudformation",
-			"output": {
-				"authConfig": {
-					"additionalAuthenticationProviders": [],
-					"defaultAuthentication": {
-						"authenticationType": "API_KEY",
-						"apiKeyConfig": {
-							"description": "spaceXgraphQLkey",
-							"apiKeyExpirationDays": "180"
-						}
-					}
-				}
-			}
-		}
-	},
-	"auth": {
-		"spacexamplifieddd3e0e21": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [],
-			"customAuth": false
-		}
-	},
-	"hosting": {}
+  "api": {
+    "spacexamplified": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 365,
+              "apiKeyExpirationDate": "2023-06-16T13:17:58.362Z",
+              "description": "spaceXgraphQLkey"
+            }
+          }
+        }
+      },
+      "dependsOn": []
+    }
+  },
+  "auth": {
+    "spacexamplifieddd3e0e21": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  },
+  "hosting": {}
 }
